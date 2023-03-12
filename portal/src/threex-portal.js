@@ -170,7 +170,7 @@ THREEx.Portal360.prototype._buildOutsideMesh = function(texture360, doorWidth, d
 	//		add 360 sphere
 	//////////////////////////////////////////////////////////////////////////////
 	// add 360 texture
-	var radius360Sphere = 10
+	var radius360Sphere = 2
 	// var radius360Sphere = 1
 
 	// build half sphere geometry
