@@ -4,11 +4,57 @@
     </title>
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-    
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@6.1.1/dist/aframe-extras.min.js"></script>
     <body style="margin : 0px; overflow: hidden;">
-        <a-scene arjs>
-            <a-marker id="marker" type="pattern" url="./src/markers/patt/marler_example.patt">
-                <a-box color="red" opacity="0.5" position="0 0.5 0"></a-box>
+        <a-scene 
+            embedded
+            vr-mode-ui="enabled: false;"
+            arjs="trackingMethod: best; debugUIEnabled: false;"
+            renderer="logarithmicDepthBuffer: true;"
+        >
+            <a-assets>
+                <a-asset-item id="babr" src="./src/models/babr_solution.glb" />
+                <a-asset-item id="logo" src="./src/models/logo_solution.glb"/>
+                <a-asset-item id="person1" src="./src/models/person_1.glb"/>
+                <a-asset-item id="person2" src="./src/models/person_2.glb"/>
+                <a-asset-item id="person3" src="./src/models/person_3.glb"/>
+                <a-asset-item id="person4" src="./src/models/person_4.glb"/>
+                
+            </a-assets>
+            <a-marker id="marker_1" type="pattern" url="./src/markers/patt/pattern_1.patt">
+                <a-plane rotation="-90 0 0" color="white">
+                    <a-entity rotation="90 0 0" gltf-model="#babr" scale="0.05 0.05 0.05" animation-mixer></a-entity>                
+                </a-plane>
+            </a-marker>
+
+            <a-marker id="marker_2" type="pattern" url="./src/markers/patt/pattern_2.patt">
+                <a-plane rotation="-90 0 0" color="black">
+                    <a-entity rotation="90 0 0" gltf-model="#logo" scale="0.25 0.25 0.25" position="0 0 0.5" animation-mixer></a-entity>                
+                </a-plane>        
+            </a-marker>
+
+            <a-marker id="marker_3" type="pattern" url="./src/markers/patt/pattern_3.patt">
+                <a-plane rotation="-90 0 0" color="white">
+                    <a-entity rotation="90 0 0" gltf-model="#babr" scale="0.05 0.05 0.05" animation-mixer></a-entity>                
+                </a-plane>           
+            </a-marker>
+
+            <a-marker id="marker_4" type="pattern" url="./src/markers/patt/pattern_4.patt">
+                <a-plane rotation="-90 0 0" color="white">
+                    <a-entity rotation="90 0 0" gltf-model="#babr" scale="0.05 0.05 0.05" animation-mixer></a-entity>                
+                </a-plane>          
+            </a-marker>
+
+            <a-marker id="marker_5" type="pattern" url="./src/markers/patt/pattern_5.patt">
+                <a-plane rotation="-90 0 0" color="white">
+                    <a-entity rotation="90 0 0" gltf-model="#babr" scale="0.05 0.05 0.05" animation-mixer></a-entity>                
+                </a-plane>        
+            </a-marker>
+
+            <a-marker id="marker_6" type="pattern" url="./src/markers/patt/pattern_6.patt">
+                <a-plane rotation="-90 0 0" color="white">
+                    <a-entity rotation="90 0 0" gltf-model="#babr" scale="0.05 0.05 0.05" animation-mixer></a-entity>                
+                </a-plane>        
             </a-marker>
             <a-entity camera></a-camera>
         </a-scene>
