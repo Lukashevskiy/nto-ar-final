@@ -30,13 +30,15 @@
               
            </a-assets>
            <a-marker id="marker_1" preset="kanji">
+            <a-entity scale="0.5 0.5 0.5">
                 <a-obj-model src="#obj" mtl="#mtl" opacity ></a-obj-model>
                 <a-box color="blue" position="2 -1 0" depth="2" height="2" width="2"></a-box>
                 <a-cylinder color="red" position="-2 2.5 2" radius="1.5" height="3"></a-cylinder>
                 <a-sphere color="yellow" position="3 0.7 2" radius="0.7"></a-sphere>
                 <a-sphere color="purple" position="-1.5 1.5 -1.5" radius="0.5"></a-sphere>
                 <a-octahedron color="green" position="0.4 0 -2.5" scale="1 0.71 1" radius="1.42" rotation="0 45 0"></a-octahedron>
-           </a-marker>
+            </a-entity>
+            </a-marker>
 
            <a-entity camera></a-camera>
        </a-scene>
