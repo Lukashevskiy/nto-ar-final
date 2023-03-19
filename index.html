@@ -1,81 +1,84 @@
 <!DOCTYPE html>
 <html>
   <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-<!-- <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script> -->
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 
   <body>
    <script>
-     AFRAME.registerComponent('follow', {
-       schema: {
-
-         target: {
-           type: "array",
-           minItems: 1,
-           maxItems: 2,
-           items: "selector"
+    AFRAME.registerComponent('follow', {
+        schema: {
+         t1: {
+           type: "selector",
+         },
+         t2: {
+           type: "selector",
          },
          speed: { type: 'number' }
-       },
+        },
 
-       init: function () {
-         this.targets = [this.data.target[0], this.data.target[1]]
-       },
+        init: function () {
+            this.targets = [this.data.t1.object3D, this.data.t2.object3D];
+        },
 
-      update: function(){
-           this.fromPosition = new THREE.Vector3(this.targets[0].position);
-           this.toPosition = new THREE.Vector3(this.targets[1].position);
-       },
+        update: function(){
+            this.fromPosition = this.targets[0].position;
+            this.toPosition = this.targets[1].position;
+        },
 
-       tick: function (time, timeDelta) {           
-         // Grab position vectors (THREE.Vector3) from the entities' three.js objects.
-         // console.log(this.data.target);
-            // var this.fromPosition = this.this.fromPosition;
-            // this.fromPosition =  new THREE.Vector3( );
-            // this.fromPosition.add(this.targets[0].object3D.position);
-            // this.fromPosition.add(this.targets[0].parentEl.object3D.position);
-
-            // var this.toPosition =  this.this.toPosition;
-            // this.toPosition.add(this.targets[1].object3D.position);
-            // this.toPosition.add(this.targets[1].parentEl.object3D.position);
-            var Inter =  new THREE.Vector3( );
-            Inter.add(this.fromPosition);
-            Inter.add(this.toPosition);
-            Inter.multiplyScalar(0.5);
-            Inter.y += 5;
+        tick: function (time, timeDelta) {           
+            
             var t = Math.abs((time*0.001)%2-1);
             t = Math.min(t,0.98);
             t = Math.max(t,0.02);
-            // console.log(t);
-            this.fromPosition.multiplyScalar(t*t);
-            Inter.multiplyScalar(t*(1-t));
-            this.toPosition.multiplyScalar((1-t)*(1-t));
+            
+            let inter =  new THREE.Vector3();  
+          
+            inter.add(this.fromPosition);
+            inter.add(this.toPosition);
+            inter.multiplyScalar(0.7);    
+            inter.y += 5;
+          
+            inter.multiplyScalar(t*(1-t));
+            
 
-         // Translate the entity in the direction towards the target.
-            this.el.setAttribute('position', {
-                x:  this.fromPosition.x + this.toPosition.x + Inter.x,
-                y:  this.fromPosition.y + this.toPosition.y + Inter.y,
-                z:  this.fromPosition.z + this.toPosition.z + Inter.z
-            });
-       }
+            startPosition = new THREE.Vector3();
+            startPosition.add(this.fromPosition);
+            startPosition.multiplyScalar(t*t);
+            
+            stopPosition = new THREE.Vector3();
+            stopPosition.add(this.toPosition);
+            stopPosition.multiplyScalar((1-t)*(1-t));
+            
+            currentPosition = new THREE.Vector3();
+            currentPosition.add(startPosition);
+            currentPosition.add(stopPosition);
+
+            currentPosition.add(inter)
+            
+            this.el.setAttribute('position', currentPosition);
+        }
      });
 
    </script>
-   <a-scene>
-   <!-- <a-scene embedded
-               ar
-           vr-mode-ui="enabled:false;"
-               arjs="trackingMethod:best; sourceType: webcam"
-               renderer="logarithmicDepthBuffer:true;">      -->
-     <a-entity>
-     <!-- <a-marker type='pattern' url='trackers/letterA.patt'> -->
-       <a-sphere radius="0.25" id="target-box1" color="red" position="1 0 -3"></a-sphere>
-     <!-- </a-marker>  -->
-     <!-- <a-marker type='pattern' url='trackers/letterB.patt'> -->
-       <a-sphere radius="0.25" id="target-box2" color="yellow" position="0 0 -3"></a-sphere>
-    <!-- </a-marker> -->
-         <a-sphere radius="0.25" follow="target: #target-box1, #target-box2; speed: 1" color="blue" position="0 0.2 0"></a-sphere>
-      <!-- <a-entity camera></a-entity>  -->
-   </a-entity>
+   <a-scene embedded
+            ar
+            vr-mode-ui="enabled:false;"
+            arjs="trackingMethod:best; sourceType: webcam"
+            renderer="logarithmicDepthBuffer:true;"> 
+
+        <a-entity>
+            <a-marker type='pattern' url='trackers/letterA.patt'>
+                <a-sphere radius="0" id="t1" color="red" position="1 0 -3"></a-sphere>
+            </a-marker> 
+            
+            <a-marker type='pattern' url='trackers/letterB.patt'>
+                <a-sphere radius="0" id="t2" color="yellow" position="0 0 -3"></a-sphere>
+            </a-marker>
+            
+            <a-sphere radius="0.25" follow="t1: #t1; t2:#t2; speed: 1" color="blue" position="0 0.2 -3"></a-sphere>
+        </a-entity>
+
+        <a-entity camera></a-entity> 
    </a-scene>
  </body>
 
