@@ -17,11 +17,11 @@
         init: function () {
           this.target = this.data.t1.object3D;
         },
-
+        
         update: function(){
           this.toPosition = this.target.position;
         },
-
+        
         tick: function(time, timeDelta) {     
 
           var t = Math.abs((time*0.001)%2-1);

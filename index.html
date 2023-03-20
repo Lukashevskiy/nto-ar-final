@@ -17,7 +17,7 @@
         },
 
         init: function () {
-            this.targets = [this.data.t1.object3D, this.data.t2.object3D];
+          this.targets = [this.data.t1.object3D, this.data.t2.object3D];
         },
 
         update: function(){
@@ -26,7 +26,6 @@
         },
 
         tick: function (time, timeDelta) {           
-            
             var t = Math.abs((time*0.001)%2-1);
             t = Math.min(t,0.98);
             t = Math.max(t,0.02);
