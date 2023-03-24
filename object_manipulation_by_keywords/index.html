@@ -36,7 +36,7 @@
     <a-scene shadow="autoUpdate: true" embedded vr-mode-ui="enabled: false;" arjs
         renderer="logarithmicDepthBuffer: true;">
 
-        <a-assets>
+        <a-assets>z
             <a-asset-item id="model" src="./src/shadow.glb"></a-asset-item>
         </a-assets>
 
@@ -52,9 +52,11 @@
                 <a-entity light="castShadow: true; type:point" color="white" position="0 5 0"></a-entity>
             </a-entity>
         </a-marker>
+
         <a-entity camera></a-camera>
         </a-entity>
     </a-scene>
+
 </body>
 
 </html>
